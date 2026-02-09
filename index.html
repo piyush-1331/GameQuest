@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameQuest | Play Amazing Games</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-icon">Q</span>
+            <span class="logo-text">Game<span>Quest</span></span>
+        </div>
+        <div class="user-progression">
+            <div class="level-badge">LVL <span id="userLevel">1</span></div>
+            <div class="xp-container">
+                <div class="xp-bar" id="xpBar"></div>
+                <span class="xp-text"><span id="currentXP">0</span> / <span id="nextLevelXP">100</span> XP</span>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="gameSearch" placeholder="Search for games...">
+            <svg class="search-icon" viewBox="0 0 24 24">
+                <path
+                    d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+            </svg>
+        </div>
+        <nav class="nav-links">
+            <a href="#" id="navHome" class="active">Home</a>
+            <a href="#" id="navNew">New</a>
+            <a href="#" id="navLiked">Liked</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Unlock the World of <span>Play</span></h1>
+                <p>Hundreds of games, one destination. No downloads, just pure fun.</p>
+                <button class="btn-primary"
+                    onclick="document.getElementById('game-grid').scrollIntoView({behavior: 'smooth'})">Explore
+                    Games</button>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-cards">
+                    <div class="card-sm"></div>
+                    <div class="card-md"></div>
+                    <div class="card-lg"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="games-section">
+            <div class="section-header">
+                <h2>All Games</h2>
+                <div class="filter-pills">
+                    <span class="pill active">All</span>
+                    <span class="pill">Action</span>
+                    <span class="pill">Puzzle</span>
+                    <span class="pill">Retro</span>
+                </div>
+            </div>
+            <div id="game-grid" class="game-grid">
+                <!-- Games will be injected here by JS -->
+                <div class="loading-shimmer"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="game-container">
+                <button class="settings-btn" onclick="togglePauseMenu()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.18-.08a2 2 0 0 0-2 0l-.44.44a2 2 0 0 0 0 2l.18.18a2 2 0 0 1 0 2l-.25.43a2 2 0 0 1-1.73 1l-.18.08a2 2 0 0 0 0 2v.44a2 2 0 0 0 2 2h.18a2 2 0 0 1 1.73 1l.25.43a2 2 0 0 1 0 2l-.08.18a2 2 0 0 0 0 2l.44.44a2 2 0 0 0 2 0l.18-.18a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73l.08.18a2 2 0 0 0 2 0h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.18.08a2 2 0 0 0 2 0l.44-.44a2 2 0 0 0 0-2l-.18-.18a2 2 0 0 1 0-2l.25-.43a2 2 0 0 1 1.73-1l.18-.08a2 2 0 0 0 0-2v-.44a2 2 0 0 0-2-2h-.18a2 2 0 0 1-1.73-1l-.25-.43a2 2 0 0 1 0-2l.08-.18a2 2 0 0 0 0-2l-.44-.44a2 2 0 0 0-2 0l-.18.18a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73l-.08-.18a2 2 0 0 0-2 0z">
+                        </path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </button>
+                <div id="pauseMenu" class="pause-menu">
+                    <div class="pause-content">
+                        <h2>Game Paused</h2>
+                        <button class="btn-primary" onclick="resumeGame()">Resume</button>
+                        <button class="btn-secondary" onclick="exitGame()">Exit Game</button>
+                    </div>
+                </div>
+                <iframe id="gameFrame" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="game-info">
+                <h3 id="modalGameTitle">Game Title</h3>
+                <button class="btn-fullscreen" onclick="toggleFullscreen()">Full Screen</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 GameQuest - Premium Web Gaming</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
