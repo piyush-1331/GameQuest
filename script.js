@@ -273,6 +273,13 @@ function resumeGame() {
     pauseMenu.style.display = 'none';
 }
 
+function restartGame() {
+    if (gameFrame.src) {
+        gameFrame.src = gameFrame.src; // Reloads the iframe
+    }
+    resumeGame(); // Hides the menu
+}
+
 function exitGame() {
     resumeGame(); // Hide menu
     if (document.fullscreenElement) {
